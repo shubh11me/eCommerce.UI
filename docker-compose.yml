@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app:cached
+      # keep container node_modules so host doesn't overwrite them
+      - /app/node_modules
+    ports:
+      - "4200:4200"
+    environment:
+      # Use polling to ensure file changes are detected in many Docker setups
+      CHOKIDAR_USEPOLLING: "true"
+      # optional: reduce Angular logging
+      NG_CLI_ANALYTICS: "false"
+    # command pinned to script in package.json; you can override with `docker-compose run`
+    command: ["npm", "run", "start:docker"]
+    restart: unless-stopped
