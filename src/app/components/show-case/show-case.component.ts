@@ -38,7 +38,7 @@ export class ShowCaseComponent {
   addToCart(product: ProductResponse): void
   {
     var cartItem: CartItem = {
-      productID: product.productID,
+      productId: product.productId,
       productName: product.productName,
       unitPrice: product.unitPrice,
       quantity: 1,

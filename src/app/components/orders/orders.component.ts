@@ -30,7 +30,7 @@ export class OrdersComponent {
 
   ngOnInit(): void {
     //console.log(this.usersService.authResponse);
-    this.cartService.getOrdersByUserID(this.usersService.authResponse?.userID!)
+    this.cartService.getOrdersByuserId(this.usersService.authResponse?.userId!)
       .subscribe({
         next: (response: OrderResponse[]) => {
           this.isLoaded = true;
@@ -42,7 +42,7 @@ export class OrdersComponent {
             order.orderItems.forEach((orderItem: OrderItemResponse) => {
 
               var cartItem: CartItem = {
-                productID: orderItem.productID,
+                productId: orderItem.productId,
                 productName: orderItem.productName,
                 unitPrice: orderItem.unitPrice,
                 quantity: orderItem.quantity,

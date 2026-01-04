@@ -31,10 +31,10 @@ export class UsersService {
 
   login(email: string, password: string): Observable<AuthenticationResponse> {
     // Check if the provided email and password match the admin user
-    if (email === 'admin@example.com' && password === 'admin') {
+    if (email === 'admin@example.com' && password === 'Admin123*') {
       // If it's the admin user, return a custom Observable
       const adminUser: AuthenticationResponse = {
-        userID: 'admin_id',
+        userId: 'admin_id',
         personName: 'Admin',
         email: 'admin@example.com',
         gender: 'male', // Add the appropriate gender for the admin user

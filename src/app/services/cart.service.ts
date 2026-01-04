@@ -20,8 +20,8 @@ export class CartService {
     addCartItem(cartItem: CartItem): void {
         var isFound: boolean = false;
         this.cart = this.cart.map(item => {
-            //console.log(item.productID, cartItem.productID, item.productID == cartItem.productID);
-            if (item.productID == cartItem.productID) {
+            //console.log(item.productId, cartItem.productId, item.productId == cartItem.productId);
+            if (item.productId == cartItem.productId) {
                 item.quantity++;
                 isFound = true;
             }
@@ -35,13 +35,13 @@ export class CartService {
         }
     }
 
-    removeCartItem(productID: string): void {
+    removeCartItem(productId: string): void {
         var shouldRemoveItem: boolean = false;
 
-        //console.log(this.cart, productID);
+        //console.log(this.cart, productId);
 
         this.cart = this.cart.map(item => {
-            if (item.productID == productID) {
+            if (item.productId == productId) {
                 if (item.quantity > 1)
                     item.quantity--;
                 else
@@ -50,11 +50,11 @@ export class CartService {
             return item;
         });
 
-        //console.log(this.cart, productID, shouldRemoveItem);
+        //console.log(this.cart, productId, shouldRemoveItem);
 
         if (shouldRemoveItem) {
             this.cart = this.cart.filter(item => {
-                return item.productID != productID;
+                return item.productId != productId;
             })
         }
     }
@@ -69,23 +69,25 @@ export class CartService {
 
     newOrder(): Observable<OrderResponse> {
         var newOrderRequest: NewOrderRequest = {
-            userID: this.usersService.authResponse?.userID!,
+            userId: this.usersService.authResponse?.userId!,
             orderDate: new Date(),
             orderItems: []
         };
         this.cart.forEach(cartItem => {
             newOrderRequest.orderItems.push({
-                productID: cartItem.productID,
+                productId: cartItem.productId,
                 unitPrice: cartItem.unitPrice,
                 quantity: cartItem.quantity
             });
         });
-
+        console.log(newOrderRequest);
+        console.log(this.usersService.authResponse);
+        console.log(this.cart);
         return this.http.post<OrderResponse>(`${this.ordersAPIURL}`, newOrderRequest);
     }
 
-    getOrdersByUserID(userID: string): Observable<OrderResponse[]> {
-        return this.http.get<OrderResponse[]>(`${this.ordersAPIURL}search/userid/${userID}`);
+    getOrdersByuserId(userId: string): Observable<OrderResponse[]> {
+        return this.http.get<OrderResponse[]>(`${this.ordersAPIURL}search/userId/${userId}`);
     }
 
     getOrders(): Observable<OrderResponse[]> {

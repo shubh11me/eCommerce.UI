@@ -38,11 +38,11 @@ export class ProductsComponent {
 
   edit(product : ProductResponse) : void
   {
-    this.router.navigate(['/products', 'edit', product.productID]);
+    this.router.navigate(['/products', 'edit', product.productId]);
   }
 
   delete(product : ProductResponse) : void
   {
-    this.router.navigate(['/products', 'delete', product.productID]);
+    this.router.navigate(['/products', 'delete', product.productId]);
   }
 }

@@ -26,7 +26,7 @@ export class EditProductComponent {
 
   constructor(private fb: FormBuilder, public usersService: UsersService, private productsService: ProductsService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.editProductForm = this.fb.group({
-      productID: ['', Validators.required],
+      productId: ['', Validators.required],
       productName: ['', [Validators.required]],
       category: ['', [Validators.required]],
       unitPrice: [''],
@@ -36,12 +36,12 @@ export class EditProductComponent {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      var productID = params['productID']; // Replace with your actual parameter name
+      var productId = params['productId']; // Replace with your actual parameter name
 
-      this.productsService.getProductByProductID(productID).subscribe({
+      this.productsService.getProductByproductId(productId).subscribe({
         next: (response: ProductResponse) => {
           this.editProductForm.setValue({
-            productID: response.productID,
+            productId: response.productId,
             productName: response.productName,
             category: response.category,
             unitPrice: response.unitPrice,
@@ -71,8 +71,8 @@ export class EditProductComponent {
     }
   }
 
-  get productIDFormControl(): FormControl {
-    return this.editProductForm.get('productID') as FormControl;
+  get productIdFormControl(): FormControl {
+    return this.editProductForm.get('productId') as FormControl;
   }
 
   get productNameFormControl(): FormControl {

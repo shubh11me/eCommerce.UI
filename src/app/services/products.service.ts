@@ -21,19 +21,19 @@ export class ProductsService {
   }
 
   searchProducts(searchString: string): Observable<ProductResponse[]> {
-    return this.http.get<ProductResponse[]>(`${this.productsAPIURL}search/${searchString}`);
+    return this.http.get<ProductResponse[]>(`${this.productsAPIURL}search?name=${searchString}`);
   }
 
-  getProductByProductID(productID: string): Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(`${this.productsAPIURL}search/product-id/${productID}`);
+  getProductByproductId(productId: string): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(`${this.productsAPIURL}${productId}`);
   }
 
   updateProduct(productUpdateRequest: ProductUpdateRequest): Observable<ProductResponse> {
-    return this.http.put<ProductResponse>(`${this.productsAPIURL}`, productUpdateRequest);
+    return this.http.put<ProductResponse>(`${this.productsAPIURL}update`, productUpdateRequest);
   }
 
-  deleteProduct(productID: string): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.productsAPIURL}${productID}`);
+  deleteProduct(productId: string): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.productsAPIURL}${productId}`);
   }
 
   createProduct(newProductRequest: NewProductRequest): Observable<ProductResponse> {
@@ -49,16 +49,16 @@ USE ecommerceproductsdatabase;
 
 -- Create the products table
 CREATE TABLE IF NOT EXISTS products (
-  ProductID char(36) NOT NULL,
+  productId char(36) NOT NULL,
   ProductName varchar(50) NOT NULL,
   Category varchar(50) DEFAULT NULL,
   UnitPrice decimal(10,2) DEFAULT NULL,
   QuantityInStock int DEFAULT NULL,
-  PRIMARY KEY (ProductID)
+  PRIMARY KEY (productId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Insert 12 sample rows into the products table with specified categories
-INSERT INTO products (ProductID, ProductName, Category, UnitPrice, QuantityInStock) VALUES
+INSERT INTO products (productId, ProductName, Category, UnitPrice, QuantityInStock) VALUES
   ('1a9df78b-3f46-4c3d-9f2a-1b9f69292a77', 'Apple iPhone 15 Pro Max', 'Electronics', 1299.99, 50),
   ('2c8e8e7c-97a3-4b11-9a1b-4dbe681cfe17', 'Samsung Foldable Smart Phone 2', 'Electronics', 1499.99, 100),
   ('3f3e8b3a-4a50-4cd0-8d8e-1e178ae2cfc1', 'Ergonomic Office Chair', 'Furniture', 249.99, 25),

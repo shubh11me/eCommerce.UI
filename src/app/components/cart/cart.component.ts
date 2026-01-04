@@ -41,7 +41,7 @@ export class CartComponent {
 
   // Function to decrease quantity (handle minimum quantity)
   decreaseQuantity(item: CartItem): void {
-    this.cartService.removeCartItem(item.productID);
+    this.cartService.removeCartItem(item.productId);
     this.cartItems = this.cartService.getCartItems();
     this.cartItemsDataSource = new MatTableDataSource<CartItem>(this.cartItems);
   }
